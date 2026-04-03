@@ -19,27 +19,28 @@ string toLower(const string& str)//将所有单词转换成小写，方便后续
     return result;
 }
 
-vector<string> extractWord(const string& line)//提取文章中的单词
+vector<string> extractWord(const string& line)
 {
     vector<string> words;
     string word;
-    for (char ch : line)
+    for (unsigned char ch : line)  // 使用 unsigned char 避免负值问题
     {
         if (isalpha(ch))
         {
             word += tolower(ch);
         }
-        else//识别到空格
+        else
         {
-            if (!word.empty()) //有完整单词
+            if (!word.empty())
             {
-                words.push_back(word);//将单词存入vector
-                word.clear();//清空word，为读取下个单词做准备
+                words.push_back(word);
+                word.clear();
             }
+            // 其他字符（包括汉字）直接忽略
         }
     }
 
-    if (!word.empty())//处理行尾单词没有空格结尾
+    if (!word.empty())
     {
         words.push_back(word);
     }
